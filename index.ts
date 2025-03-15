@@ -11,11 +11,9 @@ function mergeTwoLists(
   list1: ListNode | null,
   list2: ListNode | null
 ): ListNode | null {
-  // Create a dummy node to simplify the merging process
-  const dummy: ListNode = new ListNode();
-  let current: ListNode = dummy;
+  let mergedList = new ListNode();
+  let current = mergedList;
 
-  // Traverse both lists and merge them
   while (list1 !== null && list2 !== null) {
     if (list1.val <= list2.val) {
       current.next = list1;
@@ -24,16 +22,10 @@ function mergeTwoLists(
       current.next = list2;
       list2 = list2.next;
     }
+
     current = current.next;
   }
 
-  // Attach the remaining nodes from list1 or list2
-  if (list1 !== null) {
-    current.next = list1;
-  } else {
-    current.next = list2;
-  }
-
-  // Return the head of the merged list (next node of dummy)
-  return dummy.next;
+  current.next = list1 ?? list2;
+  return mergedList.next;
 }
